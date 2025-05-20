@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DutchGrit.Afas.CodeGen
 {
@@ -46,9 +44,9 @@ namespace DutchGrit.Afas.CodeGen
             throw new NotImplementedException($"TypeString {type} not found in {nameof(TypeStringToType)} function.");
         }
 
-        public  static string GetInterfaceString(bool isConnected)
+        public static string GetInterfaceString(bool isConnected)
         {
-            return isConnected ? nameof(IUpdateable<object>)+ "<object>" : nameof(IUpdateEntity);
+            return isConnected ? nameof(IUpdateable<object>) + "<object>" : nameof(IUpdateEntity);
         }
 
 

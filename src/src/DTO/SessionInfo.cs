@@ -1,7 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Text.Json.Serialization;
 
 namespace DutchGrit.Afas
 {
@@ -9,13 +6,13 @@ namespace DutchGrit.Afas
     {
 
 
-        [JsonProperty("updateConnectors", Required = Required.Default)]
+        [JsonPropertyName("updateConnectors")]
         public ConnectorInfo[] UpdateConnectors { get; set; }
 
-        [JsonProperty("getConnectors", Required = Required.Default)]
+        [JsonPropertyName("getConnectors")]
         public ConnectorInfo[] GetConnectors { get; set; }
 
-        [JsonProperty("info", Required = Required.Always)]
+        [JsonPropertyName("info")]
         public SessionInfoDetails Info { get; set; }
     }
 

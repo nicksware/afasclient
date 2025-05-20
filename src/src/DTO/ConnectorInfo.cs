@@ -1,14 +1,14 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace DutchGrit.Afas
 {
     public class ConnectorInfo
     {
 
-        [JsonProperty("id", Required=Required.Always)]
+        [JsonPropertyName("id")]
         public string Id { get; set; }
 
-        [JsonProperty("description", Required = Required.Always)]
+        [JsonPropertyName("description")]
         public string Description { get; set; }
     }
 

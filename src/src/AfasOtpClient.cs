@@ -1,10 +1,6 @@
 ﻿using DutchGrit.Afas.DTO;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Net.Http;
-using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace DutchGrit.Afas
@@ -40,7 +36,7 @@ namespace DutchGrit.Afas
                 UserId = UserID
             };
 
-            var content = JsonConvert.SerializeObject(request);
+            var content = JsonSerializer.Serialize(request);
 
             var res = await this.OtpPost("otprequest", content);
             var con = await res.Content.ReadAsStringAsync();
@@ -60,7 +56,7 @@ namespace DutchGrit.Afas
                 OTP = ValidationCode
             };
 
-            var content = JsonConvert.SerializeObject(request);
+            var content = JsonSerializer.Serialize(request);
 
             var res = await this.OtpPost("otpvalidation", content);
             res.EnsureSuccessStatusCode();
@@ -70,7 +66,7 @@ namespace DutchGrit.Afas
             }
             var con = await res.Content.ReadAsStringAsync();
 
-            var response = JsonConvert.DeserializeObject<OtpValidationResponse>(con);
+            var response = JsonSerializer.Deserialize<OtpValidationResponse>(con);
             return response.Token.Trim();
         }
 

@@ -1,8 +1,8 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace DutchGrit.Afas
@@ -55,7 +55,7 @@ namespace DutchGrit.Afas
             return z.Version;
         }
 
-       
+
         public async Task<FileInfo> GetFileBySubjectAsync(int SubjectID, string FileID)
         {
             using (var res = await this.GetAuthHttp($"subjectconnector/{SubjectID}/{FileID}"))
@@ -64,7 +64,7 @@ namespace DutchGrit.Afas
                 if (code >= 200 && code <= 299)
                 {
                     var txt = await res.Content.ReadAsStringAsync();
-                    return JsonConvert.DeserializeObject<FileInfo>(txt);
+                    return JsonSerializer.Deserialize<FileInfo>(txt);
                 }
                 if (res.StatusCode == HttpStatusCode.NotFound)
                 {
@@ -80,13 +80,13 @@ namespace DutchGrit.Afas
         {
             return new AfasQuery<T>(this);
         }
-   
+
 
         public string GetVersion() => AsyncHelpers.RunSync<string>(() => GetVersionAsync());
 
         public SessionInfo GetSessionInfo() => AsyncHelpers.RunSync<SessionInfo>(() => GetSessionInfoAsync());
 
-        public FileInfo GetFileBySubject(int SubjectID, string FileID) => AsyncHelpers.RunSync<FileInfo>( () => GetFileBySubjectAsync(SubjectID, FileID ));
+        public FileInfo GetFileBySubject(int SubjectID, string FileID) => AsyncHelpers.RunSync<FileInfo>(() => GetFileBySubjectAsync(SubjectID, FileID));
 
     }
 }

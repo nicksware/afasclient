@@ -1,20 +1,17 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Text.Json.Serialization;
 
 namespace DutchGrit.Afas.DTO
 {
     public class OtpRequest
     {
 
-        [JsonProperty("apiKey")]
+        [JsonPropertyName("apiKey")]
         public string ApiKey { get; set; }
 
-        [JsonProperty("userid")]
+        [JsonPropertyName("userid")]
         public string UserId { get; set; }
 
-        [JsonProperty("apiToken")]
+        [JsonPropertyName("apiToken")]
         public string ApiToken { get; set; }
     
     }

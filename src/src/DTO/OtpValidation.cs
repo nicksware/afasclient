@@ -1,11 +1,11 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace DutchGrit.Afas.DTO
 {
     class OtpValidation : OtpRequest
     {
 
-        [JsonProperty("Otp")]
+        [JsonPropertyName("Otp")]
         public string OTP { get; set; }
 
     }

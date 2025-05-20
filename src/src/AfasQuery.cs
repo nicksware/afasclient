@@ -1,11 +1,10 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace DutchGrit.Afas
@@ -125,7 +124,7 @@ namespace DutchGrit.Afas
         }
 
         /// <summary>
-        /// Returns the JsonProperty fieldname, if specified. Otherwise the propertyname is returned.
+        /// Returns the JsonPropertyName fieldname, if specified. Otherwise the propertyname is returned.
         /// </summary>
         /// <param name="fieldSelector"></param>
         /// <returns></returns>
@@ -155,10 +154,10 @@ namespace DutchGrit.Afas
             //if (memberExpression is MemberExpression me)
             //{
             var pi = (PropertyInfo)memberExpression.Member;
-            var attr = pi.GetCustomAttribute(typeof(JsonPropertyAttribute));
+            var attr = pi.GetCustomAttribute(typeof(JsonPropertyNameAttribute));
             if (attr != null)
             {
-                var name = ((JsonPropertyAttribute)attr).PropertyName;
+                var name = ((JsonPropertyNameAttribute)attr).Name;
                 return name;
             }
             return null;
@@ -170,7 +169,7 @@ namespace DutchGrit.Afas
         }
 
         /// <summary>
-        /// Returns the JsonProperty fieldname, if specified. Otherwise the propertyname is returned.
+        /// Returns the JsonPropertyName fieldname, if specified. Otherwise the propertyname is returned.
         /// </summary>
         /// <param name="propertyName"></param>
         /// <returns></returns>
@@ -178,15 +177,15 @@ namespace DutchGrit.Afas
         {
             var propinfo = typeof(T).GetProperty(propertyName);
 
-            if (propinfo==null)
+            if (propinfo == null)
             {
                 throw new ArgumentException($"Invalid propertyName {propertyName}", nameof(OrderBy));
             }
-            
-            var attr = propinfo.GetCustomAttribute(typeof(JsonPropertyAttribute));
+
+            var attr = propinfo.GetCustomAttribute<JsonPropertyNameAttribute>();
             if (attr != null)
             {
-                var name = ((JsonPropertyAttribute)attr).PropertyName;
+                var name = attr.Name;  
                 return name;
             }
             return propertyName;

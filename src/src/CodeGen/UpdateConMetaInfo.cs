@@ -1,7 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace DutchGrit.Afas
 {
@@ -20,19 +19,19 @@ namespace DutchGrit.Afas
     public class UpdateConMetaInfo  : IMergeable<UpdateConMetaInfo>
     {
 
-        [JsonProperty("id")]
+        [JsonPropertyName("id")]
         public string Id { get; set; }
 
-        [JsonProperty("description")]
+        [JsonPropertyName("description")]
         public string Description { get; set; }
 
-        [JsonProperty("name")]
+        [JsonPropertyName("name")]
         public string Name { get; set; }
 
-        [JsonProperty("fields")]
+        [JsonPropertyName("fields")]
         public UpdateConMetaInfoField[] Fields { get; set; }
 
-        [JsonProperty("objects")]
+        [JsonPropertyName("objects")]
         public UpdateConMetaInfo[] Objects { get; set; }
 
 
@@ -99,10 +98,10 @@ namespace DutchGrit.Afas
     public class MetaInfoValue
     {
 
-        [JsonProperty("id")]
+        [JsonPropertyName("id")]
         public string Id { get; set; }
 
-        [JsonProperty("description")]
+        [JsonPropertyName("description")]
         public string Description { get; set; }
 
     }

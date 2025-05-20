@@ -1,95 +1,70 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System.Linq;
+using System.Text.Json;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
 
 namespace DutchGrit.Afas
 {
 
     static class AfasUpdateWriter
     {
-
-
         public static string Write(IUpdateEntity value, IUpdateEntity[] elements)
         {
-            StringBuilder sb = new StringBuilder();
-            StringWriter sw = new StringWriter(sb);
+            var root = new Dictionary<string, object>();
+            var mainObj = new Dictionary<string, object>();
 
-            using (JsonWriter writer = new JsonTextWriter(sw))
+            List<object> elementList = new List<object>();
+
+            foreach (var element in elements)
             {
-                writer.Formatting = Formatting.Indented;
+                var elementObj = new Dictionary<string, object>();
 
-                writer.WriteStartObject();
-
-
-                writer.WritePropertyName(value.GetType().Name);
-                writer.WriteStartObject();
-
-                writer.WritePropertyName("Element");
-                if (elements.Length>1)
+                // Get KeyFieldName
+                var keyFields = KeyFieldAttribute.GetFieldNames(element);
+                if (keyFields != null)
                 {
-                    writer.WriteStartArray();
-                }
-
-                foreach (var element in elements)
-                {
-                    writer.WriteStartObject();
-
-                    //Get KeyFieldName
-                    var keyFields = KeyFieldAttribute.GetFieldNames(element);
-                    if (keyFields != null)
+                    foreach (var keyField in keyFields)
                     {
-                        foreach (var keyField in keyFields)
+                        var keyValue = element.GetType().GetProperty(keyField).GetValue(element, null);
+                        if (keyValue != null)
                         {
-                            var keyValue = element.GetType().GetProperty(keyField).GetValue(element, null);
-                            if (keyValue != null)
-                            {
-                                writer.WritePropertyName("@" + keyField);
-                                writer.WriteValue(keyValue);
-                            }
-                        }   
-                    }
-
-                    writer.WritePropertyName("Fields");
-                    writer.WriteRawValue(JsonConvert.SerializeObject(element, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore }));
-
-
-                    if (element.Objects != null)
-                    {
-                        writer.WritePropertyName("Objects");
-                        writer.WriteStartArray();
-                        //loop geordend door de Objecten heen. 
-                        //welke 'unieke' objecten zitten erin?
-                        var uniqueObjects = element.Objects.Select(x => x.GetType().Name).Distinct().ToArray();
-                        foreach (var uniqueObject in uniqueObjects)
-                        {
-                            //bepaal hoeveel objecten van dit type er zijn. 
-                            var subelements = element.Objects.Where(x => x.GetType().Name == uniqueObject).ToArray();
-                            writer.WriteRawValue(Write(subelements[0], subelements));
+                            elementObj["@" + keyField] = keyValue;
                         }
-                        writer.WriteEndArray();
                     }
-
-
-                    writer.WriteEndObject();
-
                 }
 
-                if (elements.Length > 1)
+                // Serialize fields, ignoring nulls
+                // Updated JsonSerializerOptions to use DefaultIgnoreCondition
+                var options = new JsonSerializerOptions
                 {
-                    writer.WriteEndArray();
+                    DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull
+                };
+                var fieldsJson = JsonSerializer.Serialize(element, options);
+                elementObj["Fields"] = JsonDocument.Parse(fieldsJson).RootElement;
+
+                if (element.Objects != null)
+                {
+                    var objectsArr = new List<object>();
+                    var uniqueObjects = element.Objects.Select(x => x.GetType().Name).Distinct().ToArray();
+                    foreach (var uniqueObject in uniqueObjects)
+                    {
+                        var subelements = element.Objects.Where(x => x.GetType().Name == uniqueObject).ToArray();
+                        var subJson = Write(subelements[0], subelements);
+                        objectsArr.Add(JsonDocument.Parse(subJson).RootElement);
+                    }
+                    elementObj["Objects"] = objectsArr;
                 }
 
-                writer.WriteEndObject();
-                writer.WriteEndObject();
+                elementList.Add(elementObj);
             }
 
-            return sb.ToString();
+            // If only one element, don't wrap in array
+            mainObj["Element"] = elements.Length > 1 ? elementList : elementList.First();
+
+            root[value.GetType().Name] = mainObj;
+
+            var rootJson = JsonSerializer.Serialize(root, new JsonSerializerOptions { WriteIndented = true });
+            return rootJson;
         }
     }
-
-
 }
 
