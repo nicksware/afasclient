@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
 	    <UserSecretsId>2508f9d2-d815-49df-a709-f739ec918282</UserSecretsId>
         <IsPackable>false</IsPackable>
         <AssemblyName>DutchGrit.Afas.Tests</AssemblyName>
