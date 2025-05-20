@@ -1,5 +1,4 @@
 using DutchGrit.Afas;
-using Newtonsoft.Json;
 using System;
 using System.Threading.Tasks;
 using Xunit;
