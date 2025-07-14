@@ -1,19 +1,18 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Text.Json.Serialization;
 
 namespace DutchGrit.Afas
 {
     public class GetConMetaInfo
     {
-        [JsonProperty("fields", Required = Required.Always)]
+        public GetConMetaInfo() { }
+
+        [JsonPropertyName("fields")]
         public GetConMetaInfoField[] Fields { get; set; }
 
-        [JsonProperty("name", Required = Required.Always)]
+        [JsonPropertyName("name")]
         public string Name { get; set; }
 
-        [JsonProperty("description", Required = Required.Always)]
+        [JsonPropertyName("description")]
         public string Description { get; set; }
     }
 }

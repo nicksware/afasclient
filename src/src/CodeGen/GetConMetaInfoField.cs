@@ -1,32 +1,32 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace DutchGrit.Afas
 {
     public class GetConMetaInfoField
     {
 
-        [JsonProperty("id", Required = Required.Always)]
+        [JsonPropertyName("id")]
         public string Id { get; set; }
 
-        [JsonProperty("fieldId", Required = Required.Always)]
+        [JsonPropertyName("fieldId")]
         public string FieldId { get; set; }
 
-        [JsonProperty("dataType", Required = Required.Always)]
+        [JsonPropertyName("dataType")]
         public string DataType { get; set; }
 
-        [JsonProperty("label")]
+        [JsonPropertyName("label")]
         public string Label { get; set; }
 
-        [JsonProperty("length")]
+        [JsonPropertyName("length")]
         public int Length { get; set; }
 
-        [JsonProperty("controlType", Required = Required.Always)]
+        [JsonPropertyName("controlType")]
         public int ControlType { get; set; }
 
-        [JsonProperty("decimals", Required = Required.AllowNull)]
+        [JsonPropertyName("decimals")]
         public int Decimals { get; set; }
 
-        [JsonProperty("decimalsFieldId")]
+        [JsonPropertyName("decimalsFieldId")]
         public string DecimalsFieldId { get; set; }
 
 

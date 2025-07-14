@@ -1,14 +1,12 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Text.Json.Serialization;
 
 namespace DutchGrit.Afas
 {
     class AfasVersion
     {
+        public AfasVersion() { }
 
-        [JsonProperty("version", Required=Required.Always)]
+        [JsonPropertyName("version")]
         public string Version { get; set; }
     }
 

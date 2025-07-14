@@ -1,19 +1,21 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace DutchGrit.Afas
 {
     public class SessionInfoDetails
     {
-        [JsonProperty("envid",Required = Required.Always)]
+        public SessionInfoDetails() { }
+        
+        [JsonPropertyName("envid")]
         public string EnvironmentID { get; set; }
 
-        [JsonProperty("appName", Required = Required.Always)]
+        [JsonPropertyName("appName")]
         public string ApplicationName { get; set; }
 
-        [JsonProperty("group", Required = Required.Always)]
+        [JsonPropertyName("group")]
         public string Group { get; set; }
 
-        [JsonProperty("tokenExpiry", Required = Required.Default)]
+        [JsonPropertyName("tokenExpiry")]
         public string TokenExpiry { get; set; }
 
     }

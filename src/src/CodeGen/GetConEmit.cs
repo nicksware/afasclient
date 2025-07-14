@@ -1,17 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Text;
 
 namespace DutchGrit.Afas.CodeGen
 {
     public class GetConEmit
     {
+        public GetConEmit() { }
+
         public static string EmitGetConnector(GetConMetaInfo meta, EmitOptions options = null)
         {
-            if (options == null) { options = new EmitOptions(); }   
+            if (options == null) { options = new EmitOptions(); }
 
             var sb = new StringBuilder();
-            sb.AppendLine($"using Newtonsoft.Json; ");
+            sb.AppendLine($"using System.Text.Json;");
+            sb.AppendLine($"using System.Text.Json.Serialization;");
             sb.AppendLine($"using System;");
             sb.AppendLine($"using System.Collections.Generic;");
             sb.AppendLine($"using System.ComponentModel;");
@@ -33,7 +34,7 @@ namespace DutchGrit.Afas.CodeGen
                 sb.AppendLine($"        /// {item.Label}");
                 sb.AppendLine($"        /// </summary>");
                 sb.AppendLine($"        [Description(\"{item.Label}\")]");
-                sb.AppendLine($"        [JsonProperty(\"{item.Id}\")]");
+                sb.AppendLine($"        [JsonPropertyName(\"{item.Id}\")]");
                 sb.AppendLine($"        public virtual {Helpers.DataTypeToType(item.DataType, item.ControlType)} {Utils.FixFields(item.Id)} {{ get; set; }}");
                 sb.AppendLine($"");
             }

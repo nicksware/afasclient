@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <UserSecretsId>2508f9d2-d815-49df-a709-f739ec918282</UserSecretsId>
     <RootNamespace>DutchGrit.Afas</RootNamespace>
     <AssemblyName>DutchGrit.AfasClient</AssemblyName>
@@ -21,11 +21,6 @@
     <RepositoryUrl>https://github.com/dutchgrit/afasclient</RepositoryUrl>
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />
-  </ItemGroup>
 
   <ItemGroup>
     <None Include="../LICENSE.md">

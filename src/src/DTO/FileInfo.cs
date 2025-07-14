@@ -1,20 +1,18 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Text.Json.Serialization;
 
 namespace DutchGrit.Afas
 {
     public class FileInfo
     {
+        public FileInfo() { }
 
-        [JsonProperty("filename", Required = Required.Always)]
+        [JsonPropertyName("filename")]
         public string FileName { get; set; }
 
-        [JsonProperty("filedata", Required = Required.Always)]
+        [JsonPropertyName("filedata")]
         public string FileDataBase64 { get; set; }
 
-        [JsonProperty("mimetype", Required = Required.Always)]
+        [JsonPropertyName("mimetype")]
         public string mimetype { get; set; }
 
 

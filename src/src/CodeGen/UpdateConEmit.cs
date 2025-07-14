@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
@@ -14,7 +13,8 @@ namespace DutchGrit.Afas.CodeGen
 
             var sb = new StringBuilder();
 
-            sb.AppendLine($"using Newtonsoft.Json;");
+            sb.AppendLine($"using System.Text.Json;");
+            sb.AppendLine($"using System.Text.Json.Serialization;");
             sb.AppendLine($"using System;");
             sb.AppendLine($"using System.Collections.Generic;");
             sb.AppendLine($"using System.ComponentModel.DataAnnotations;");
@@ -61,7 +61,7 @@ namespace DutchGrit.Afas.CodeGen
                 //{
                 //    sb.sb.AppendLine($"        [JsonRequired()]");
                 //}
-                sb.AppendLine($"        [JsonProperty(\"{item.FieldId}\")]");
+                sb.AppendLine($"        [JsonPropertyName(\"{item.FieldId}\")]");
 
                 if (item.DataType == "string")
                 {

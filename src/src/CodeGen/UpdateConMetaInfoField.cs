@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 using System;
 using System.Collections.Generic;
 
@@ -6,34 +6,36 @@ namespace DutchGrit.Afas
 {
     public class UpdateConMetaInfoField : IMergeable<UpdateConMetaInfoField>
     {
-        [JsonProperty("fieldId")]
+        public UpdateConMetaInfoField() { }
+        
+        [JsonPropertyName("fieldId")]
         public string FieldId {get;set;}
 
-        [JsonProperty("primaryKey")]
+        [JsonPropertyName("primaryKey")]
         public string PrimaryKey { get; set; }
 
-        [JsonProperty("dataType")]
+        [JsonPropertyName("dataType")]
         public string DataType { get; set; }
 
-        [JsonProperty("label")]
+        [JsonPropertyName("label")]
         public string Label { get; set; }
 
-        [JsonProperty("mandatory")]
+        [JsonPropertyName("mandatory")]
         public bool Mandatory { get; set; }
 
-        [JsonProperty("length")]
+        [JsonPropertyName("length")]
         public int Length { get; set; }
 
-        [JsonProperty("controlType")]
+        [JsonPropertyName("controlType")]
         public int ControlType { get; set; }
 
-        [JsonProperty("decimals")]
+        [JsonPropertyName("decimals")]
         public int Decimals { get; set; }
 
-        [JsonProperty("notzero")]
+        [JsonPropertyName("notzero")]
         public bool NotZero { get; set; }
 
-        [JsonProperty("values")]
+        [JsonPropertyName("values")]
         public MetaInfoValue[] Values { get; set; }
 
         public void MergeWith(UpdateConMetaInfoField other)

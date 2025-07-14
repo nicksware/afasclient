@@ -1,21 +1,16 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Text.Json;
 
 namespace DutchGrit.Afas
 {
     public class UpdateResult<T>
     {
-
-
         public static UpdateResult<T> CreateSuccess(string result)
         {
             return new UpdateResult<T>
             {
                 IsSuccess = true,
                 ErrorMessage = "",
-                Result = JsonConvert.DeserializeObject<T>(result)
+                Result = JsonSerializer.Deserialize<T>(result)
             };
         }
 
@@ -27,7 +22,6 @@ namespace DutchGrit.Afas
                 ErrorMessage = msg
             };
         }
-        
 
         public bool IsSuccess { get; set; }
         public string ErrorMessage { get; set; }
@@ -37,6 +31,5 @@ namespace DutchGrit.Afas
         {
 
         }
-
     }
 }

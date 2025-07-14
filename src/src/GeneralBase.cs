@@ -1,11 +1,7 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Net;
+﻿using System.Net;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
+using System.Text.Json;
 
 namespace DutchGrit.Afas
 {
@@ -35,7 +31,7 @@ namespace DutchGrit.Afas
             {
                 res.EnsureSuccessStatusCode();
                 var txt = await res.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<T>(txt);
+                return JsonSerializer.Deserialize<T>(txt);
             }
         }
 
@@ -104,7 +100,7 @@ namespace DutchGrit.Afas
                 if (code >= 200 && code <= 299)
                 {
                     var txt = await res.Content.ReadAsStringAsync();
-                    return JsonConvert.DeserializeObject<FileInfo>(txt);
+                    return JsonSerializer.Deserialize<FileInfo>(txt);
                 }
                 if (res.StatusCode == HttpStatusCode.NotFound)
                 {
@@ -130,7 +126,7 @@ namespace DutchGrit.Afas
                 if (code >= 200 && code <= 299)
                 {
                     var txt = await res.Content.ReadAsStringAsync();
-                    return JsonConvert.DeserializeObject<ImageInfo>(txt);
+                    return JsonSerializer.Deserialize<ImageInfo>(txt);
                 }
                 if (res.StatusCode == HttpStatusCode.NotFound && useNotFoundImage)
                 {

@@ -1,20 +1,18 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Text.Json.Serialization;
 
 namespace DutchGrit.Afas
 {
     public class QueryResult<T>
     {
+        public QueryResult() { }
 
-        [JsonProperty("skip", Required=Required.Always)]
+        [JsonPropertyName("skip")]
         public int Skip { get; set; }
 
-        [JsonProperty("take", Required = Required.Always)]
+        [JsonPropertyName("take")]
         public int Take { get; set; }
 
-        [JsonProperty("rows", Required = Required.Always)]
+        [JsonPropertyName("rows")]
         public T[] Row { get; set; }
 
 
