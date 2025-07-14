@@ -9,14 +9,14 @@ namespace DutchGrit.Afas
     {
         public static string MergeString(string s1, string s2)
         {
-            if (s1==null) { return s2; }
-            if (s2==null) { return s1; }
-            return (s1.Length>s2.Length) ? s1 :s2; 
+            if (s1 == null) { return s2; }
+            if (s2 == null) { return s1; }
+            return (s1.Length > s2.Length) ? s1 : s2;
         }
     }
 
-
-    public class UpdateConMetaInfo  : IMergeable<UpdateConMetaInfo>
+    [JsonUnmappedMemberHandling(JsonUnmappedMemberHandling.Disallow)]
+    public class UpdateConMetaInfo : IMergeable<UpdateConMetaInfo>
     {
         public UpdateConMetaInfo() { }
 
@@ -57,7 +57,7 @@ namespace DutchGrit.Afas
 
             //merge the fields.. 
             var newfields = new List<UpdateConMetaInfoField>();
-            if (this.Fields!=null) { newfields.AddRange(this.Fields); }
+            if (this.Fields != null) { newfields.AddRange(this.Fields); }
             if (other.Fields != null)
             {
                 foreach (var otherField in other.Fields)
@@ -79,7 +79,7 @@ namespace DutchGrit.Afas
 
             //merg the objects..
             var newobjects = new List<UpdateConMetaInfo>();
-            if (this.Objects!=null) { newobjects.AddRange(this.Objects); }
+            if (this.Objects != null) { newobjects.AddRange(this.Objects); }
             if (other.Objects != null)
             {
                 foreach (var otherObject in other.Objects)

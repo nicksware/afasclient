@@ -2,6 +2,7 @@
 
 namespace DutchGrit.Afas
 {
+    [JsonUnmappedMemberHandling(JsonUnmappedMemberHandling.Disallow)]
     public class GetConMetaInfo
     {
         public GetConMetaInfo() { }
