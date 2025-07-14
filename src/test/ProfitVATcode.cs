@@ -1,19 +1,17 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Text.Json.Serialization;
 
 namespace DutchGrit.Afas.Tests
 {
     [ConnectorName("Profit_VAT_code")]
     public class ProfitVATcode : IGetEntity
     {
+        public ProfitVATcode() { }
 
         /// <summary>
         /// Btw-code
         /// </summary>
 
-        [JsonProperty("VatCode")]
+        [JsonPropertyName("VatCode")]
         public virtual string VatCode { get; set; }
 
 
@@ -21,7 +19,7 @@ namespace DutchGrit.Afas.Tests
         /// Omschrijving
         /// </summary>
 
-        [JsonProperty("Description")]
+        [JsonPropertyName("Description")]
         public virtual string Description { get; set; }
 
 
@@ -29,7 +27,7 @@ namespace DutchGrit.Afas.Tests
         /// Rekening
         /// </summary>
 
-        [JsonProperty("AccountNr")]
+        [JsonPropertyName("AccountNr")]
         public virtual string AccountNr { get; set; }
 
 
@@ -37,7 +35,7 @@ namespace DutchGrit.Afas.Tests
         /// Tarief
         /// </summary>
 
-        [JsonProperty("VatPerc")]
+        [JsonPropertyName("VatPerc")]
         public virtual double? VatPerc { get; set; }
 
 
@@ -45,7 +43,7 @@ namespace DutchGrit.Afas.Tests
         /// Btw-plicht
         /// </summary>
 
-        [JsonProperty("VatDuty")]
+        [JsonPropertyName("VatDuty")]
         public virtual string VatDuty { get; set; }
 
 
@@ -53,7 +51,7 @@ namespace DutchGrit.Afas.Tests
         /// Geblokkeerd
         /// </summary>
 
-        [JsonProperty("Blocked")]
+        [JsonPropertyName("Blocked")]
         public virtual bool? Blocked { get; set; }
 
 
@@ -61,7 +59,7 @@ namespace DutchGrit.Afas.Tests
         /// Berekeningsmethode
         /// </summary>
 
-        [JsonProperty("VatMethod")]
+        [JsonPropertyName("VatMethod")]
         public virtual string VatMethod { get; set; }
 
 
@@ -69,7 +67,7 @@ namespace DutchGrit.Afas.Tests
         /// Code inkoop/verkoop code
         /// </summary>
 
-        [JsonProperty("VatType")]
+        [JsonPropertyName("VatType")]
         public virtual string VatType { get; set; }
 
     }
