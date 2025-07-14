@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Text.Json;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace DutchGrit.Afas
 {
@@ -36,7 +37,11 @@ namespace DutchGrit.Afas
                 // Updated JsonSerializerOptions to use DefaultIgnoreCondition
                 var options = new JsonSerializerOptions
                 {
-                    DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull
+                    PropertyNameCaseInsensitive = true,
+                    // Controls how null values are handled during serialization
+                    DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+                    // Fail on any JSON properties not mapped to your model
+                    UnmappedMemberHandling = JsonUnmappedMemberHandling.Disallow
                 };
                 var fieldsJson = JsonSerializer.Serialize(element, options);
                 elementObj["Fields"] = JsonDocument.Parse(fieldsJson).RootElement;
