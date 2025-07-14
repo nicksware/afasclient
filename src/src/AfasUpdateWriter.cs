@@ -15,6 +15,18 @@ namespace DutchGrit.Afas
 
             List<object> elementList = new List<object>();
 
+            // Serialize fields, ignoring nulls
+            // Updated JsonSerializerOptions to use DefaultIgnoreCondition
+            var options = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true,
+                // Controls how null values are handled during serialization
+                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+                // Fail on any JSON properties not mapped to your model
+                UnmappedMemberHandling = JsonUnmappedMemberHandling.Disallow,
+                WriteIndented = true
+            };
+
             foreach (var element in elements)
             {
                 var elementObj = new Dictionary<string, object>();
@@ -33,16 +45,6 @@ namespace DutchGrit.Afas
                     }
                 }
 
-                // Serialize fields, ignoring nulls
-                // Updated JsonSerializerOptions to use DefaultIgnoreCondition
-                var options = new JsonSerializerOptions
-                {
-                    PropertyNameCaseInsensitive = true,
-                    // Controls how null values are handled during serialization
-                    DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-                    // Fail on any JSON properties not mapped to your model
-                    UnmappedMemberHandling = JsonUnmappedMemberHandling.Disallow
-                };
                 var fieldsJson = JsonSerializer.Serialize(element, options);
                 elementObj["Fields"] = JsonDocument.Parse(fieldsJson).RootElement;
 
@@ -67,7 +69,7 @@ namespace DutchGrit.Afas
 
             root[value.GetType().Name] = mainObj;
 
-            var rootJson = JsonSerializer.Serialize(root, new JsonSerializerOptions { WriteIndented = true });
+            var rootJson = JsonSerializer.Serialize(root, options);
             return rootJson;
         }
     }
