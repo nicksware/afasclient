@@ -2,10 +2,11 @@
 
 namespace DutchGrit.Afas
 {
+    [JsonUnmappedMemberHandling(JsonUnmappedMemberHandling.Disallow)]
     public class SessionInfoDetails
     {
         public SessionInfoDetails() { }
-        
+
         [JsonPropertyName("envid")]
         public string EnvironmentID { get; set; }
 
@@ -19,6 +20,4 @@ namespace DutchGrit.Afas
         public string TokenExpiry { get; set; }
 
     }
-
-
 }

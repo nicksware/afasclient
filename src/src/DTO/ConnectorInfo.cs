@@ -2,6 +2,7 @@
 
 namespace DutchGrit.Afas
 {
+    [JsonUnmappedMemberHandling(JsonUnmappedMemberHandling.Disallow)]
     public class ConnectorInfo
     {
         public ConnectorInfo() { }
@@ -12,6 +13,4 @@ namespace DutchGrit.Afas
         [JsonPropertyName("description")]
         public string Description { get; set; }
     }
-
-
 }

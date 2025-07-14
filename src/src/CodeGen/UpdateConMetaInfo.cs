@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace DutchGrit.Afas
 {
-
+    [JsonUnmappedMemberHandling(JsonUnmappedMemberHandling.Disallow)]
     public static class MergeUtils
     {
         public static string MergeString(string s1, string s2)
@@ -96,6 +96,7 @@ namespace DutchGrit.Afas
         }
     }
 
+    [JsonUnmappedMemberHandling(JsonUnmappedMemberHandling.Disallow)]
     public class MetaInfoValue
     {
         public MetaInfoValue() { }
