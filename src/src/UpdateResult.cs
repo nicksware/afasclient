@@ -1,4 +1,7 @@
-﻿using System.Text.Json;
+﻿using System;
+using System.Collections.Generic;
+using System.Text.Json;
+using System.Text;
 
 namespace DutchGrit.Afas
 {
@@ -27,9 +30,6 @@ namespace DutchGrit.Afas
         public string ErrorMessage { get; set; }
         public T Result { get; set; }
 
-        private UpdateResult()
-        {
-
-        }
+        private UpdateResult() { }
     }
 }

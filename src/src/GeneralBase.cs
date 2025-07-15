@@ -1,16 +1,18 @@
-﻿using System.Net;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net.Http;
-using System.Threading.Tasks;
+using System.Net;
 using System.Text.Json;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace DutchGrit.Afas
 {
     public abstract class GeneralBase
     {
-
-        
         public static LoggingHandler loggingHandler = new LoggingHandler(new HttpClientHandler());
-        
+
         internal static HttpClient httpClientInternal = new HttpClient(loggingHandler, false);
 
 
@@ -68,7 +70,7 @@ namespace DutchGrit.Afas
 
             return res.IsSuccessStatusCode ? UpdateResult<TResult>.CreateSuccess(con) : UpdateResult<TResult>.CreateError(con);
         }
-        
+
         // delete whole record, such as an entire knQuotation
         public async Task<UpdateResult<TResult>> DeleteAsync<TResult>(IUpdateable<TResult> value)
         {
@@ -115,7 +117,6 @@ namespace DutchGrit.Afas
 
         public async Task<ImageInfo> GetImageAsync(int ImageID, ImageSizes imageSize, bool useNotFoundImage = true)
         {
-
             ///https://refinery.afaspocket.nl/imageconnector/25544?format=1&sendAsBinary=1&appuid=U81UFQS
             ///werkt ook zonder appuid en sendAsBinary ..
             /// TODO  : testen of de sendAsBinary ook werkt bij de gewone connector?
@@ -145,11 +146,7 @@ namespace DutchGrit.Afas
         public UpdateResult<TResult> Save<TResult>(IUpdateable<TResult> value, string subitem = "") => AsyncHelpers.RunSync<UpdateResult<TResult>>(() => SaveAsync(value, subitem));
 
         public UpdateResult<TResult> Update<TResult>(IUpdateable<TResult> value, string subitem = "") => AsyncHelpers.RunSync<UpdateResult<TResult>>(() => UpdateAsync(value, subitem));
-        
+
         public UpdateResult<TResult> Delete<TResult>(IUpdateable<TResult> value) => AsyncHelpers.RunSync<UpdateResult<TResult>>(() => DeleteAsync(value));
-
-
-
     }
-
 }

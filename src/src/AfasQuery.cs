@@ -5,11 +5,11 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace DutchGrit.Afas
 {
-
     public enum QueryFilter
     {
         Equals = 1,
@@ -34,7 +34,6 @@ namespace DutchGrit.Afas
 
     public class WhereClausule
     {
-
         public string field { get; set; }
         public string[] values { get; set; }
 
@@ -78,9 +77,6 @@ namespace DutchGrit.Afas
             }
             return result;
         }
-
-
-
     }
 
     public class OrderByItem
@@ -109,7 +105,6 @@ namespace DutchGrit.Afas
 
     public class AfasQuery<T> where T : IGetEntity
     {
-
         private readonly IGeneralClient conn;
 
         private List<WhereClausule> WhereClausules = new List<WhereClausule>();
@@ -130,7 +125,6 @@ namespace DutchGrit.Afas
         /// <returns></returns>
         private string GetJsonPropertyName(Expression<Func<T, object>> fieldSelector)
         {
-
             if (fieldSelector == null) { throw new ArgumentNullException(); }
 
             //only lamdba's of type x=>x.property are valid expressions.
@@ -185,7 +179,7 @@ namespace DutchGrit.Afas
             var attr = propinfo.GetCustomAttribute<JsonPropertyNameAttribute>();
             if (attr != null)
             {
-                var name = attr.Name;  
+                var name = attr.Name;
                 return name;
             }
             return propertyName;
@@ -242,7 +236,6 @@ namespace DutchGrit.Afas
 
         private AfasQuery<T> ProcesWhereInternalByFieldName(string fieldName, string[] values, QueryFilter filter)
         {
-
             //Preproces values, in case of Contains -> the values should be extended with % %
             switch (filter)
             {
@@ -403,7 +396,7 @@ namespace DutchGrit.Afas
 
             qTake = chunkSize;
             qSkip = 0;
-            while (lastLength== chunkSize)
+            while (lastLength == chunkSize)
             {
                 var url = BuildURL();
                 var queryResult = await this.conn.GetApiAsync<QueryResult<T>>(url);
@@ -414,7 +407,6 @@ namespace DutchGrit.Afas
             }
 
             return finalResult.ToArray();
-
         }
 
 
@@ -446,8 +438,8 @@ namespace DutchGrit.Afas
 
 
             //Server only allows -1 in combination
-            if (qTake==-1) { qSkip = -1; }
-            if (qSkip==-1) { qTake = -1; }
+            if (qTake == -1) { qSkip = -1; }
+            if (qSkip == -1) { qTake = -1; }
 
             queryString["skip"] = qSkip.ToString();
             queryString["take"] = qTake.ToString();
@@ -455,13 +447,6 @@ namespace DutchGrit.Afas
             var addition = queryString.ToString();
 
             return addition.Length > 0 ? url + "?" + addition : url;
-
         }
-
-
-
-
     }
 }
-
-

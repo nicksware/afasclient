@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
@@ -6,7 +7,6 @@ namespace DutchGrit.Afas.CodeGen
 {
     public class UpdateConEmit
     {
-
         public static string EmitUpdateConnector(UpdateConMetaInfo meta, EmitOptions options = null)
         {
             if (options == null) { options = new EmitOptions(); }
@@ -150,6 +150,5 @@ namespace DutchGrit.Afas.CodeGen
             sb.AppendLine($"}}");
             return sb.ToString();
         }
-
     }
 }

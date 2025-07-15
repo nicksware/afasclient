@@ -1,11 +1,14 @@
-﻿using System.Text.Json.Serialization;
+﻿using System;
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
+using System.Text;
 
 namespace DutchGrit.Afas
 {
     public class ImageInfo
     {
         public ImageInfo() { }
-        
+
         [JsonPropertyName("filedata")]
         public string FileDataBase64 { get; set; }
 
@@ -14,7 +17,7 @@ namespace DutchGrit.Afas
 
         [JsonIgnore()]
         public bool IsNotFound { get; set; } = false;
-        
+
         public static ImageInfo NotFoundImageInfo()
         {
             return new ImageInfo()

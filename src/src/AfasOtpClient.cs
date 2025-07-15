@@ -1,18 +1,20 @@
 ﻿using DutchGrit.Afas.DTO;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json;
+using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace DutchGrit.Afas
 {
-
     /// <summary>
     /// Afas features a user-based OTP token module.
     /// OtpTokenClient needs an ApiKey and EnvironmentKey to request a Token usable for the AfasClient
     /// </summary>
     public class AfasOtpClient : AfasBase, IAfasOtpClient
     {
-
         private readonly string apiKey;
         private readonly string environmentKey;
 
@@ -69,7 +71,5 @@ namespace DutchGrit.Afas
             var response = JsonSerializer.Deserialize<OtpValidationResponse>(con);
             return response.Token.Trim();
         }
-
-
     }
 }

@@ -1,4 +1,7 @@
-﻿using System.Text.Json.Serialization;
+﻿using System;
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
+using System.Text;
 
 namespace DutchGrit.Afas
 {
@@ -14,7 +17,5 @@ namespace DutchGrit.Afas
 
         [JsonPropertyName("mimetype")]
         public string mimetype { get; set; }
-
-
     }
 }
